@@ -1,0 +1,17 @@
+{% set slug = uri.query('slug')|url_decode %}
+{% set preview = page.collection( { items: {'@page.page': '/termine'} } ) %}
+{#}{#}
+{% if preview|first %}
+    {% set preview = preview|first %}
+    {% extends preview.template ~ '.html.twig' %}
+
+    {% block content %}
+        {{ parent() }}
+        {{dump(preview)}}
+        {{dump(slug)}}
+        {% if authorize(['admin.login', 'admin.pages']) %}
+        {{dump(grav.user)}}
+        {% endif %}
+    {% endblock %}
+{% endif %}
+{#}{#}
