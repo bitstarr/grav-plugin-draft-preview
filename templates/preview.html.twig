@@ -1,0 +1,7 @@
+{% set slug = uri.query('slug')%}
+{% set preview = page.collection( { items: { '@page.page': slug } } ) %}
+{# do we have a page and are we logged in? #}
+{% if preview|first and authorize(['admin.login', 'admin.pages'])%}
+    {% set preview = preview|first %}
+    {% include 'partials/extend.html.twig' with { preview: preview } %}
+{% endif %}

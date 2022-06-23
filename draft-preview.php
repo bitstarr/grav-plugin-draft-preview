@@ -30,8 +30,8 @@ class DraftPreviewPlugin extends Plugin
                 // ['autoload', 100000],
                 ['onPluginsInitialized', 0]
             ],
-            // 'onAdminTwigTemplatePaths' => [ 'onAdminTwigTemplatePaths', 0 ],
-            // 'onPagesInitialized'       => ['onPagesInitialized', 0],
+            'onTwigTemplatePaths' => [ 'onTwigTemplatePaths', 0 ],
+            'onPagesInitialized'       => ['onPagesInitialized', 0],
         ];
     }
 
@@ -51,9 +51,10 @@ class DraftPreviewPlugin extends Plugin
     public function onPluginsInitialized(): void
     {
         // Don't proceed if we are in the admin plugin
-        // if ($this->isAdmin()) {
-        //     return;
-        // }
+        if ($this->isAdmin()) {
+            return;
+        }
+        /*
         if ($this->isAdmin()) {
             $this->enable([
                 'onAdminTwigTemplatePaths' => [
@@ -62,6 +63,7 @@ class DraftPreviewPlugin extends Plugin
                 'onPagesInitialized' => ['onPagesInitialized', 0]
             ]);
         }
+        */
 
         // Enable the main events we are interested in
         $this->enable([
@@ -70,17 +72,16 @@ class DraftPreviewPlugin extends Plugin
     }
 
     //  Add twig paths to admin plugin templates.
-    public function onAdminTwigTemplatePaths($event) {
-        $event['paths'] = array_merge($event['paths'], [__DIR__ . '/admin/templates']);
+    /*
+    public function onTwigTemplatePaths($event) {
+        $event['paths'] = array_merge($event['paths'], [__DIR__ . '/templates']);
         return $event;
     }
-
-    // public function onAdminTwigTemplatePaths($event)
-    // {
-    //     $paths = $event['paths'];
-    //     $paths[] = __DIR__ . '/admin/templates';
-    //     $event['paths'] = $paths;
-    // }
+    */
+    public function onTwigTemplatePaths()
+    {
+        $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
+    }
 
     /**
      * Programmatically add a custom page.
