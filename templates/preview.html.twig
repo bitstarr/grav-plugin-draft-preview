@@ -1,7 +1,7 @@
 {% set slug = uri.query('slug')%}
-{% set preview = page.collection( { items: { '@page.page': slug } } ) %}
+{% set preview = page.collection( { items: { '@page.page': slug }, filter: { 'published': false } } ) %}
 {# do we have a page and are we logged in? #}
 {% if preview|first and authorize(['admin.login', 'admin.pages'])%}
     {% set preview = preview|first %}
-    {% include 'partials/extend.html.twig' with { preview: preview } %}
+    {% include 'partials/extend.html.twig' with { page: preview } %}
 {% endif %}
