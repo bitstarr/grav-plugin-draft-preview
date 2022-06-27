@@ -12,6 +12,9 @@ use Grav\Common\Page\Page;
  */
 class DraftPreviewPlugin extends Plugin
 {
+
+    const SLUG = 'draft-preview';
+
     /**
      * @return array
      *
@@ -30,8 +33,8 @@ class DraftPreviewPlugin extends Plugin
                 // ['autoload', 100000],
                 ['onPluginsInitialized', 0]
             ],
-            'onTwigTemplatePaths' => [ 'onTwigTemplatePaths', 0 ],
-            'onPagesInitialized'       => ['onPagesInitialized', 0],
+            'onTwigTemplatePaths'   => [ 'onTwigTemplatePaths', 0 ],
+            'onPagesInitialized'    => ['onPagesInitialized', 0],
         ];
     }
 
@@ -52,32 +55,31 @@ class DraftPreviewPlugin extends Plugin
     {
         // Don't proceed if we are in the admin plugin
         if ($this->isAdmin()) {
-            return;
-        }
-        /*
-        if ($this->isAdmin()) {
+            /** @var UserInterface|null $user */
+            $user = $this->grav['user'] ?? null;
+
+            if (null === $user || !$user->authorize('login', 'admin')) {
+                return;
+            }
+
             $this->enable([
-                'onAdminTwigTemplatePaths' => [
-                    ['onAdminTwigTemplatePaths', 11]
-                ],
-                'onPagesInitialized' => ['onPagesInitialized', 0]
+                // Put your main events here
+                'onAssetsInitialized' => ['onAssetsInitialized', 0],
             ]);
         }
-        */
 
         // Enable the main events we are interested in
         $this->enable([
             // Put your main events here
         ]);
+
     }
 
-    //  Add twig paths to admin plugin templates.
-    /*
-    public function onTwigTemplatePaths($event) {
-        $event['paths'] = array_merge($event['paths'], [__DIR__ . '/templates']);
-        return $event;
-    }
-    */
+    /**
+     * [onTwigTemplatePaths]
+     *
+     * @return void
+     */
     public function onTwigTemplatePaths()
     {
         $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
@@ -124,5 +126,23 @@ class DraftPreviewPlugin extends Plugin
             $this->addPage($route, 'preview.md');
         }
     }
+
+    /**
+     * [onAssetsInitialized]
+     *
+     * @return void
+     */
+    public function onAssetsInitialized()
+    {
+        $page = $this->grav['admin']->page();
+        // $this->grav['debugger']->addMessage( $page->published() );
+        if ( $page->published() == false )
+        {
+
+            $assets = $this->grav['assets'];
+            $assets->addJs( 'plugin://' . self::SLUG . '/assets/preview.js', [ 'group' => 'bottom' ] );
+        }
+    }
+
 
 }
