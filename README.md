@@ -1,8 +1,6 @@
 # Draft Preview Plugin
 
-**This README.md file should be modified to describe the features, installation, configuration, and general usage of the plugin.**
-
-The **Draft Preview** Plugin is an extension for [Grav CMS](http://github.com/getgrav/grav). Preview Pages that are not published yet
+The **Draft Preview** Plugin is an extension for [Grav CMS](http://github.com/getgrav/grav). After installation you can preview pages that are not published yet in admin.
 
 ## Installation
 
@@ -23,7 +21,7 @@ To install the plugin manually, download the zip-version of this repository and 
 You should now have all the plugin files under
 
     /your/site/grav/user/plugins/draft-preview
-	
+
 > NOTE: This plugin is a modular component for Grav which may require other plugins to operate, please see its [blueprints.yaml-file on GitHub](https://github.com/bitstarr/grav-plugin-draft-preview/blob/master/blueprints.yaml).
 
 ### Admin Plugin
@@ -38,19 +36,23 @@ Here is the default configuration and an explanation of available options:
 
 ```yaml
 enabled: true
+route: preview      # set the route for the preview (/preview?slug=/unpublished/page)
 ```
 
 Note that if you use the Admin Plugin, a file with your configuration named draft-preview.yaml will be saved in the `user/config/plugins/`-folder once the configuration is saved in the Admin.
 
+**Important:** You will need to modify the session settings to not split sessions between frontend and plugins or the plugin cannot check if you are logged in and have the permission to preview. Set `session.split` to `false` in your system.yaml
+
+```yaml
+session:
+  enabled: true
+  split: false
+```
+
 ## Usage
 
-**Describe how to use the plugin.**
+This plugin enables a preview of unpublished pages via the admin. Without this plugin there is only a preview for already published pages. It will provide the preview button at the same place as the default one for published pages. In the background it establishes a custom route in wich the desired page will be loaded. The preview route will only work if you are logged in into the admin, have permissions for pages and set the afore mentioned session settings.
 
 ## Credits
 
-**Did you incorporate third-party code? Want to thank somebody?**
-
-## To Do
-
-- [ ] Future plans, if any
-
+Thanks [Ricardo](https://github.com/ricardo118) for helping me get this together.

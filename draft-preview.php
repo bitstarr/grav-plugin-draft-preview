@@ -121,8 +121,9 @@ class DraftPreviewPlugin extends Plugin
         /** @var Uri $uri */
         $uri = $this->grav['uri'];
         $route = Uri::getCurrentRoute()->getRoute();
+        $trigger = $this->config->get('plugins.' . self::SLUG . '.route');
 
-        if ($route === '/preview') {
+        if ($route === '/' . $trigger ) {
             $this->addPage($route, 'preview.md');
         }
     }
@@ -138,8 +139,9 @@ class DraftPreviewPlugin extends Plugin
         // $this->grav['debugger']->addMessage( $page->published() );
         if ( $page->published() == false )
         {
-
+            $trigger = $this->config->get('plugins.' . self::SLUG . '.route');
             $assets = $this->grav['assets'];
+            $assets->addInlineJs( 'const draft_preview_route = "' . $trigger . '";' );
             $assets->addJs( 'plugin://' . self::SLUG . '/assets/preview.js', [ 'group' => 'bottom' ] );
         }
     }
