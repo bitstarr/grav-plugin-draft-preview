@@ -139,12 +139,11 @@ class DraftPreviewPlugin extends Plugin
         // $this->grav['debugger']->addMessage( $page->published() );
         if ( $page->published() == false )
         {
-            $trigger = $this->config->get('plugins.' . self::SLUG . '.route');
+            $trigger = $this->config->get( 'plugins.' . self::SLUG . '.route' );
+            $route = $this->grav['base_url'] . '/' . ltrim( $trigger, '/' );
             $assets = $this->grav['assets'];
-            $assets->addInlineJs( 'const draft_preview_route = "' . $trigger . '";' );
+            $assets->addInlineJs( 'const draft_preview_route = "' . $route . '";' );
             $assets->addJs( 'plugin://' . self::SLUG . '/assets/preview.js', [ 'group' => 'bottom' ] );
         }
     }
-
-
 }

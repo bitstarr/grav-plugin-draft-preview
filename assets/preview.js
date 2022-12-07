@@ -5,7 +5,7 @@
     {
         // define preview URL and neighbour
         let route = ( typeof draft_preview_route == 'string' ) ? draft_preview_route : 'preview';
-        const previewPath = '/' + route + '?slug=/' + GravAdmin.config.route;
+        const previewPath = route + '?slug=/' + GravAdmin.config.route;
         const ancestor = document.querySelector( '#titlebar-button-delete' );
 
         // create button (clone of the original preview btn)
