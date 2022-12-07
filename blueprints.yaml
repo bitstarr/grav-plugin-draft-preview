@@ -1,7 +1,7 @@
 name: Draft Preview
 slug: draft-preview
 type: plugin
-version: 0.1.1
+version: 1.0.1
 description: Preview Pages that are not published yet
 icon: eye
 author:
