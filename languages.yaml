@@ -2,8 +2,10 @@ en:
   PLUGIN_DRAFT_PREVIEW:
     ROUTE: Route
     ROUTE_HELP: Under which slug should the preview be generated
+    SESSION_WARNING: Please enable sessions in your grav system config. See https://github.com/bitstarr/grav-plugin-draft-preview#configuration
 
 de:
   PLUGIN_DRAFT_PREVIEW:
     ROUTE: Route
     ROUTE_HELP: Unter welcher slug soll die Preview generiert werden
+    SESSION_WARNING: Session müssen in den grav Systemeinstellungen aktiviert sein. Mehr dazu unter https://github.com/bitstarr/grav-plugin-draft-preview#configuration

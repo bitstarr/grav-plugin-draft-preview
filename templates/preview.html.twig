@@ -4,4 +4,6 @@
 {% if preview|first and authorize(['admin.login', 'admin.pages'])%}
     {% set preview = preview|first %}
     {% include 'partials/extend.html.twig' with { page: preview } %}
+{% else %}
+    {{ 'PLUGIN_DRAFT_PREVIEW.SESSION_WARNING'|t }}
 {% endif %}
