@@ -129,6 +129,26 @@ class DraftPreviewPlugin extends Plugin
     }
 
     /**
+     * [getLanguageRoute]
+     *
+     * @return string
+     */
+    public function getLanguageRoute(): string
+    {
+        $page = $this->grav['admin']->page();
+        $config = $this->grav['config']['system']['languages'];
+        $current_lang = $page->language();
+        $lang = '/' . $current_lang;
+
+        if ( ! $config['include_default_lang'] && $current_lang == $config['default_lang'] )
+        {
+            $lang = '';
+        }
+
+        return $lang;
+    }
+
+    /**
      * [onAssetsInitialized]
      *
      * @return void
@@ -141,8 +161,10 @@ class DraftPreviewPlugin extends Plugin
         {
             $trigger = $this->config->get( 'plugins.' . self::SLUG . '.route' );
             $route = $this->grav['base_url'] . '/' . ltrim( $trigger, '/' );
+            $lang = $this->getLanguageRoute();
             $assets = $this->grav['assets'];
             $assets->addInlineJs( 'const draft_preview_route = "' . $route . '";' );
+            $assets->addInlineJs( 'const draft_preview_language = "' . $lang . '";' );
             $assets->addJs( 'plugin://' . self::SLUG . '/assets/preview.js', [ 'group' => 'bottom' ] );
         }
     }

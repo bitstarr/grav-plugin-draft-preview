@@ -1,3 +1,10 @@
+# v1.0.3
+##  2025-03-04
+
+1. [](#bugfix)
+    * Multi language support ([issue #5](https://github.com/bitstarr/grav-plugin-draft-preview/issues/5))
+    * Clearified error messages
+
 # v1.0.2
 ##  20220-12-16
 
