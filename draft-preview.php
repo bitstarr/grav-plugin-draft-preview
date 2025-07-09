@@ -122,7 +122,6 @@ class DraftPreviewPlugin extends Plugin
         $uri = $this->grav['uri'];
         $route = Uri::getCurrentRoute()->getRoute();
         $trigger = $this->config->get('plugins.' . self::SLUG . '.route');
-
         if ($route === '/' . $trigger ) {
             $this->addPage($route, 'preview.md');
         }
@@ -162,6 +161,7 @@ class DraftPreviewPlugin extends Plugin
             $trigger = $this->config->get( 'plugins.' . self::SLUG . '.route' );
             $route = $this->grav['base_url'] . '/' . ltrim( $trigger, '/' );
             $lang = $this->getLanguageRoute();
+            $lang = ( $lang == '/' ) ? '' : $lang;
             $assets = $this->grav['assets'];
             $assets->addInlineJs( 'const draft_preview_route = "' . $route . '";' );
             $assets->addInlineJs( 'const draft_preview_language = "' . $lang . '";' );
