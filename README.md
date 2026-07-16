@@ -1,5 +1,8 @@
 # Draft Preview Plugin
 
+> [!IMPORTANT]  
+> With the new admin2 this plugin is depricated since this feature gt integrated natively. You can still use it with your grav 1.7 projects thought.
+
 The **Draft Preview** Plugin is an extension for [Grav CMS](http://github.com/getgrav/grav). After installation you can preview pages that are not published yet in admin.
 
 ## Installation
